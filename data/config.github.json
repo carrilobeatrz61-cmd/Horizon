@@ -2,8 +2,8 @@
   "version": "1.0",
   "ai": {
     "provider": "deepseek",
-"model": "deepseek-chat",
-"api_key_env": "DEEPSEEK_API_KEY",
+    "model": "deepseek-chat",
+    "api_key_env": "DEEPSEEK_API_KEY",
     "languages": ["zh"],
     "temperature": 0.3,
     "max_tokens": 4096,
@@ -25,23 +25,42 @@
   "sources": {
     "github": [
       {
-        "type": "user_events",
-        "username": "torvalds",
+        "type": "repo_releases",
+        "owner": "anthropics",
+        "repo": "claude-code",
         "enabled": true
       },
       {
         "type": "repo_releases",
-        "owner": "astral-sh",
-        "repo": "uv",
+        "owner": "openai",
+        "repo": "codex",
         "enabled": true
       }
     ],
     "hackernews": {
       "enabled": true,
-      "fetch_top_stories": 20,
-      "min_score": 100
+      "fetch_top_stories": 30,
+      "min_score": 40
     },
     "rss": [
+      {
+        "name": "Claude Code Releases",
+        "url": "https://github.com/anthropics/claude-code/releases.atom",
+        "enabled": true,
+        "category": "claude-code"
+      },
+      {
+        "name": "OpenAI Codex Releases",
+        "url": "https://github.com/openai/codex/releases.atom",
+        "enabled": true,
+        "category": "codex"
+      },
+      {
+        "name": "OpenAI News",
+        "url": "https://openai.com/news/rss.xml",
+        "enabled": true,
+        "category": "codex"
+      },
       {
         "name": "Simon Willison",
         "url": "https://simonwillison.net/atom/everything/",
@@ -49,32 +68,73 @@
         "category": "ai-tools"
       },
       {
-        "name": "LWN.net (subscriber full-text)",
-        "url": "https://lwn.net/headlines/full_text?key=${LWN_KEY}",
-        "enabled": false,
-        "category": "linux"
+        "name": "Indie Hackers",
+        "url": "https://www.indiehackers.com/feed.xml",
+        "enabled": true,
+        "category": "ai-monetization"
       }
     ],
     "reddit": {
       "enabled": true,
       "subreddits": [
         {
-          "subreddit": "MachineLearning",
+          "subreddit": "ClaudeAI",
           "enabled": true,
           "sort": "hot",
           "time_filter": "day",
-          "fetch_limit": 15,
-          "min_score": 50
-        }
-      ],
-      "users": [
+          "fetch_limit": 12,
+          "min_score": 5
+        },
         {
-          "username": "iamthatis",
+          "subreddit": "ClaudeCode",
           "enabled": true,
-          "sort": "new",
-          "fetch_limit": 10
+          "sort": "hot",
+          "time_filter": "day",
+          "fetch_limit": 10,
+          "min_score": 1
+        },
+        {
+          "subreddit": "ChatGPTCoding",
+          "enabled": true,
+          "sort": "hot",
+          "time_filter": "day",
+          "fetch_limit": 10,
+          "min_score": 3
+        },
+        {
+          "subreddit": "SaaS",
+          "enabled": true,
+          "sort": "hot",
+          "time_filter": "day",
+          "fetch_limit": 12,
+          "min_score": 20
+        },
+        {
+          "subreddit": "SideProject",
+          "enabled": true,
+          "sort": "hot",
+          "time_filter": "day",
+          "fetch_limit": 12,
+          "min_score": 5
+        },
+        {
+          "subreddit": "Entrepreneur",
+          "enabled": true,
+          "sort": "hot",
+          "time_filter": "day",
+          "fetch_limit": 12,
+          "min_score": 20
+        },
+        {
+          "subreddit": "indiehackers",
+          "enabled": true,
+          "sort": "hot",
+          "time_filter": "day",
+          "fetch_limit": 10,
+          "min_score": 3
         }
       ],
+      "users": [],
       "fetch_comments": 5
     },
     "twitter": {
@@ -111,12 +171,23 @@
     }
   },
   "filtering": {
-    "ai_score_threshold": 6.0,
+    "ai_score_threshold": 5.5,
     "time_window_hours": 24,
-    "max_items": null,
-    "category_groups": {},
+    "max_items": 25,
+    "category_groups": {
+      "coding-agents": {
+        "name": "Claude Code / Codex 应用案例",
+        "limit": 14,
+        "categories": ["claude-code", "codex", "ai-tools"]
+      },
+      "ai-monetization": {
+        "name": "AI 变现案例",
+        "limit": 12,
+        "categories": ["ai-monetization", "startup", "business"]
+      }
+    },
     "default_group": "other",
-    "default_group_limit": null
+    "default_group_limit": 8
   },
   "webhook": {
     "enabled": false,
